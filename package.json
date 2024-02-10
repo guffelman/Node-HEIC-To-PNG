@@ -1,0 +1,20 @@
+{
+  "name": "heic-to-png",
+  "version": "1.0.0",
+  "description": "converts heic images to png",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "guffelman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "heic-convert": "^2.1.0",
+    "libheif-js": "^1.17.1",
+    "multer": "^1.4.5-lts.1",
+    "pngjs": "^7.0.0",
+    "wasm-bundle": "^1.0.5"
+  }
+}
