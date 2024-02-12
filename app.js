@@ -6,26 +6,26 @@ const port = 3000;
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-app.post('/api/convert', upload.single('images'), async (req, res) => {
+app.post('/api/convert', upload.single('image'), async (req, res) => {
     try {
-        const outputBuffers = await Promise.all(req.files.map(async file => {
-            return await convertHEIC({
-                buffer: file.buffer, // the HEIC file buffer
-                format: 'PNG', // output format
-                quality: 1 // the png compression quality, between 0 and 1
-            });
-        }));
+        const outputBuffer = await convertHEIC({
+            buffer: req.file.buffer, // the HEIC file buffer
+            format: 'PNG', // output format
+            quality: 1 // the png compression quality, between 0 and 1
+        });
+
         res.writeHead(200, {
             'Content-Type': 'image/png',
             'Content-Disposition': 'attachment; filename="converted.png"'
         });
-        res.write(outputBuffers[0]);
+        res.write(outputBuffer);
         res.end();
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Failed to convert images' });
+        res.status(500).json({ error: 'Failed to convert image' });
     }
 });
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
